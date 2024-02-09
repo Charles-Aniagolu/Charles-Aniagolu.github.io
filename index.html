@@ -678,70 +678,7 @@
     </form>
 </section>
 
-<?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Include PHPMailer Autoload
-require 'path/to/PHPMailer/src/Exception.php';
-require 'path/to/PHPMailer/src/PHPMailer.php';
-require 'path/to/PHPMailer/src/SMTP.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $address = $_POST["address"];
-    $phone = $_POST["phone"];
-    $message = $_POST["message"];
-
-    // Basic form validation
-    if (empty($name) || empty($email) || empty($message)) {
-        // Handle validation errors (you can redirect back with an error message)
-        header("Location: your_website_url?error=1");
-        exit();
-    }
-
-    // Initialize PHPMailer
-    $mail = new PHPMailer(true);
-
-    try {
-        // SMTP Configuration
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.example.com'; // Replace with your SMTP server
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'your_smtp_username';
-        $mail->Password   = 'your_smtp_password';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port       = 587;
-
-        // Sender and recipient settings
-        $mail->setFrom($email, $name);
-        $mail->addAddress('your@email.com'); // Replace with your email address
-
-        // Email content
-        $mail->isHTML(false); // Set to true for HTML emails
-        $mail->Subject = 'New Form Submission';
-        $mail->Body    = "Name: $name\nEmail: $email\nAddress: $address\nPhone: $phone\nMessage: $message";
-
-        // Send the email
-        $mail->send();
-        echo 'Message has been sent successfully!';
-
-
-        // Redirect back to your website after successful submission
-        header("Location: your_website_url?success=1");
-        exit();
-    } catch (Exception $e) {
-        // Handle errors
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
-}
-?>
-
         
-     
-
-
      <!-- footer website -->
      <footer>
         <p class="scroll-scale">Copyright &copy; 2023 by Charles Neboh || All Right Reserved.</p>
